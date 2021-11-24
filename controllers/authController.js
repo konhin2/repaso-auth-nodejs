@@ -46,7 +46,7 @@ exports.postRegister = async (req, res) => {
         msg: 'Please enter a valid email'
       })
     } else if(error.code === 11000) {
-      res.status(500).render('auth/signup', {
+      res.status(500).render('authentication/signup', {
         msg: 'Username or email already exists. Try another.'
     })
     }
