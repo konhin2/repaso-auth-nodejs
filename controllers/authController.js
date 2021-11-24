@@ -41,14 +41,8 @@ exports.postRegister = async (req, res) => {
     res.redirect("/")
 
   } catch (e) {
-    if(e instanceof mongoose.Error.ValidationError) {
-      res.status(500).render('authentication/signup', {
-        msg: 'Please enter a valid email'
-      })
-    } else if(e.code === 11000) {
-      res.status(500).render('authentication/signup', {
-        msg: 'Username or email already exists. Try another.'
+    res.status(500).render('authentication/signup', {
+      msg: 'Something happens'
     })
-    }
   }
 }
