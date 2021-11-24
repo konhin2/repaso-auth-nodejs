@@ -16,8 +16,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
+// To use partial views
 hbs.registerPartials(__dirname + "/views/partials")
 
+// To use req.body insted to use the module body-parser 
 app.use(express.urlencoded({ extended: true }))
 
 // Connect to DB
@@ -27,6 +29,8 @@ connectDB()
 app.use('/', require('./routes/index'))
 
 app.use('/users', require('./routes/users'))
+
+app.use('/auth', require('./routes/auth'))
 
 // Server
 app.listen(process.env.PORT, () => {
