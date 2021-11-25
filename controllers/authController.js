@@ -46,3 +46,51 @@ exports.postRegister = async (req, res) => {
     })
   }
 }
+
+exports.getLogin = async (req, res) => {
+  res.render('authentication/login')
+}
+
+exports.postLogin = async (req, res) => {
+  // Get Data
+  const { email, password } = req.body
+
+  // Find user
+  try {
+    const findUser = await User.findOne({ email })
+    if (!findUser){
+      return res.render('authentication/login', {
+        msg: 'No coincidences'
+      })
+    }
+    
+    // Check password
+    const checkPassword = await bcryptjs.compareSync(password, findUser.passwordHashed)
+    if (!checkPassword ) {
+      return res.render('authentication/login', {
+        msg: 'Wrong email or password'
+      })
+    }
+    req.session.currentUser = {
+      _id: findUser._id,
+      username: findUser.username,
+      email: findUser.email,
+      msg: 'We did it',
+    }
+    // Redirection
+    res.redirect('/users/profile')
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.postLogout = async (req, res) => {
+  res.clearCookie('session-token')
+  req.session.destroy(err => {
+		if(err){
+			console.log(err)
+		}
+		res.redirect("/")
+	})
+}

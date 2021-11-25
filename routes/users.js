@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const { register } = require('../controllers/usersController')
+const { profile } = require('../controllers/usersController')
 
-router.get('/', register)
+const { isLoggedIn } = require('./../middlewares/route-guard')
+
+router.get('/profile', isLoggedIn, profile)
 
 module.exports = router

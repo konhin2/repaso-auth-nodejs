@@ -1,0 +1,15 @@
+<h1>Login</h1>
+<form action="/auth/login" method="post">
+    <label>
+        Email
+        <input type="email" name="email" placeholder="ironhacker@ironhack.com" />
+    </label>
+    <label>
+        Password
+        <input type="password" name="password" placeholder="ironhacker@ironhack.com" />
+    </label>
+    <button type="submit">Login</button>
+    {{#if msg}}
+        <p>{{msg}}</p>
+    {{/if}}
+</form>
